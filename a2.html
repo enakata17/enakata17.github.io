@@ -28,8 +28,8 @@
 
       <h2>Resistance Calculation</h2>
       <img src="resistance-calculation.png" width="800" height="350"/>
-      Image of my calculation for the resistance needed for my circuit, which is 160 ohms.
-      I used 220 ohm resistors, which is the closest standard resistor with a value over 160 ohms.
+      Image of my calculation for the resistance needed for my circuit, which is X ohms.
+      I used X ohm resistors, which is the closest standard resistor with a value over X ohms.
       <br>
       <br>
 
@@ -41,7 +41,115 @@
 
       <h2>My Firmware</h2>
         <pre><code>
-        
+        /*
+          Button
+
+          Turns on and off a light emitting diode(LED) connected to digital pin 13,
+          when pressing a pushbutton attached to pin 2.
+
+          The circuit:
+          - LED attached from pin 13 to ground through 220 ohm resistor
+          - pushbutton attached to pin 2 from +5V
+          - 10K resistor attached to pin 2 from ground
+
+          - Note: on most Arduinos there is already an LED on the board
+            attached to pin 13.
+
+          created 2005
+          by DojoDave <http://www.0j0.org>
+          modified 30 Aug 2011
+          by Tom Igoe
+
+          This example code is in the public domain.
+
+          https://docs.arduino.cc/built-in-examples/digital/Button/
+        */
+
+        /*
+          Fade
+
+          This example shows how to fade an LED on pin 9 using the analogWrite()
+          function.
+
+          The analogWrite() function uses PWM, so if you want to change the pin you're
+          using, be sure to use another PWM capable pin. On most Arduino, the PWM pins
+          are identified with a "~" sign, like ~3, ~5, ~6, ~9, ~10 and ~11.
+
+          This example code is in the public domain.
+
+          https://docs.arduino.cc/built-in-examples/basics/Fade/
+        */
+
+
+
+        // Button variables:
+
+        // constants won't change. They're used here to set pin numbers:
+        const int buttonPin = 2;  // the number of the pushbutton pin
+        const int ledPin = 4;    // the number of the LED pin
+
+        // variables will change:
+        int buttonState = 0;  // variable for reading the pushbutton status
+
+        // Fade variables:
+        int ledB = 9;         // the PWM pin the blue LED is attached to
+        int ledG = 10;         // the PWM pin the green LED is attached to
+        int ledR = 11;         // the PWM pin the red LED is attached to
+        int brightness = 0;  // how bright the LED is
+        int fadeAmount = 5;  // how many points to fade the LED by
+
+        void setup() {
+          // initialize the LED pin as an output:
+          pinMode(ledPin, OUTPUT); 
+          // initialize the pushbutton pin as an input:
+          pinMode(buttonPin, INPUT);
+
+          // Fade: declare pin 9, 10, 11 to be outputs:
+          pinMode(ledB, OUTPUT);
+          pinMode(ledG, OUTPUT);
+          pinMode(ledR, OUTPUT);
+        }
+
+        void loop() {
+          // read the state of the pushbutton value:
+          buttonState = digitalRead(buttonPin);
+
+          // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+          if (buttonState == HIGH) {
+            // turn LED on:
+            digitalWrite(ledPin, HIGH);
+
+            // create a green to blue color fade effect with the RGB LED:
+            for (int i = 0; i <= 256; i++){     // loop from 0 to 256 to gradually change brightness of RGB LED
+              analogWrite(ledG, 256 - i);       // decrease brightness of green LED
+              analogWrite(ledB, i);             // increase brightness of blue LED
+              delay(20);                        // wait 20 milliseconds between each fade step
+            }
+
+            // create a blue to red color fade effect with the RGB LED:
+            for (int i = 0; i <= 256; i++){     // loop from 0 to 256 to gradually change brightness of RGB LED
+              analogWrite(ledB, 256 - i);       // decrease brightness of blue LED
+              analogWrite(ledR, i);             // increase brightness of red LED
+              delay(20);                        // wait 20 milliseconds between each fade step
+            }
+
+            // create a red to green color fade effect with the RGB LED:
+            for (int i = 0; i <= 256; i++){     // loop from 0 to 256 to gradually change brightness of RGB LED
+              analogWrite(ledR, 256 - i);       // decrease brightness of red LED
+              analogWrite(ledG, i);             // increase brightness of green LED
+              delay(20);                        // wait 20 milliseconds between each fade step
+            }
+
+          } else {                              // if the button is not pressed
+            // turn LED off:
+            digitalWrite(ledPin, LOW);          // turn off single LED
+            digitalWrite(ledB, 0);              // turn off blue LED
+            digitalWrite(ledG, 0);              // turn off green LED
+            digitalWrite(ledR, 0);              // turn off red LED
+          }
+        }
+
+
         </code>
         </pre>
       <br>
