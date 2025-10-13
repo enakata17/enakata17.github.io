@@ -21,15 +21,15 @@
     </div>
     <div class="content">
       <h2>My Schematic</h2>
-      <img src="blink-schematic.png" width="600" height="350"/>
-      Image of my schematic with labeled components, including pins, resistors, LEDs, and ground.
+      <img src="fade-schematic.png" width="600" height="350"/>
+      Image of my schematic with labeled components, including pins, resistors, LEDs, pushbuttons,and ground.
       <br>
       <br>
 
       <h2>Resistance Calculation</h2>
-      <img src="resistance-calculation.png" width="800" height="350"/>
-      Image of my calculation for the resistance needed for my circuit, which is X ohms.
-      I used X ohm resistors, which is the closest standard resistor with a value over X ohms.
+      <img src="fade-resistance-calculations.png" width="800" height="350"/>
+      Image of my calculations for the resistance needed for my circuit.
+      I used 220 ohm resistors for the red and green LEDs and a 100 ohm resistor for the blue LED.
       <br>
       <br>
 
@@ -84,11 +84,9 @@
 
         // Button variables:
 
-        // constants won't change. They're used here to set pin numbers:
         const int buttonPin = 2;  // the number of the pushbutton pin
         const int ledPin = 4;    // the number of the LED pin
 
-        // variables will change:
         int buttonState = 0;  // variable for reading the pushbutton status
 
         // Fade variables:
@@ -99,10 +97,8 @@
         int fadeAmount = 5;  // how many points to fade the LED by
 
         void setup() {
-          // initialize the LED pin as an output:
-          pinMode(ledPin, OUTPUT); 
-          // initialize the pushbutton pin as an input:
-          pinMode(buttonPin, INPUT);
+          pinMode(ledPin, OUTPUT);    // initialize the LED pin as an output:
+          pinMode(buttonPin, INPUT);  // initialize the pushbutton pin as an input:
 
           // Fade: declare pin 9, 10, 11 to be outputs:
           pinMode(ledB, OUTPUT);
@@ -111,13 +107,11 @@
         }
 
         void loop() {
-          // read the state of the pushbutton value:
-          buttonState = digitalRead(buttonPin);
+          buttonState = digitalRead(buttonPin);  // read the state of the pushbutton value
 
           // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
           if (buttonState == HIGH) {
-            // turn LED on:
-            digitalWrite(ledPin, HIGH);
+            digitalWrite(ledPin, HIGH);         // turn LED on:
 
             // create a green to blue color fade effect with the RGB LED:
             for (int i = 0; i <= 256; i++){     // loop from 0 to 256 to gradually change brightness of RGB LED
@@ -141,7 +135,6 @@
             }
 
           } else {                              // if the button is not pressed
-            // turn LED off:
             digitalWrite(ledPin, LOW);          // turn off single LED
             digitalWrite(ledB, 0);              // turn off blue LED
             digitalWrite(ledG, 0);              // turn off green LED
