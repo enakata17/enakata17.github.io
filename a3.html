@@ -21,14 +21,14 @@
     <div class="content">
       <h2>My Schematic</h2>
       <img src="a3-schematic.jpg" width="700" height="350"/>
-      Image of my schematic with labeled components, including pins, resistors, LEDs, potentiometer, and ground.
+      Image of my schematic with labeled components, including pins, resistors, LEDs, photoresistor, and ground.
       <br>
       <br>
 
       <h2>Resistance Calculation</h2>
       <img src="a3-resistance-calculations.jpg" width="800" height="550"/>
       Image of my calculations for the resistances needed for my circuit.
-      I used a 220 ohm resistor for the red LED, a 100 ohm resistor for the blue LED, and a 10k ohm resistor for the potentiometer.
+      I used a 220 ohm resistor for the red LED, a 100 ohm resistor for the blue LED, and a 10k ohm resistor for the photoresistor.
       <br>
       <br>
 
@@ -49,8 +49,8 @@
               by analogRead().
 
               The circuit:
-              - potentiometer
-                center pin of the potentiometer to the analog input 0
+              - photoresistor
+                center pin of the photoresistor to the analog input 0
                 one side pin (either one) to ground
                 the other side pin to +5V
               - LED
@@ -82,7 +82,7 @@
               the new maximum.
 
               The circuit:
-              - analog sensor (potentiometer will do) attached to analog input 0
+              - analog sensor (photoresistor will do) attached to analog input 0
               - LED attached from digital pin 9 to ground through 220 ohm resistor
 
               created 29 Oct 2008
@@ -98,7 +98,7 @@
             */
 
 
-            const int sensorPin = A0;   // analog input pin for the potentiometer
+            const int sensorPin = A0;   // analog input pin for the photoresistor
             const int ledBlue = 10;     // pin for simple blue LED
             int ledRed = 13;            // pin for simple red LED
 
@@ -201,7 +201,7 @@
         <source src="a3-circuit-video.mp4" type="video/mp4">
       Your browser does not support the video tag.
       </video>
-      Video of my circuit in operation, with a potentiometer, red LED, and blue LED.
+      Video of my circuit in operation, with a photoresistor, red LED, and blue LED.
       <br>
       <br>
 
