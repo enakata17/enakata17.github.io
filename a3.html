@@ -259,13 +259,8 @@
         <br>
         <br>
         If I had a 10-bit PWM and 16-bit analog-to-digital converter instead of 8-bit and 10-bit values, 
-        it would change the ranges I map. 
-        <br>
-        <br>
-        Right now the analogWrite Pulse Width Modulation’s (PWM) range is 0-255 (2^8), 
+        it would change the ranges I map. Right now the analogWrite Pulse Width Modulation’s (PWM) range is 0-255 (2^8), 
         but a 10-bit PWM would be 2^10, resulting in a new analogWrite range of 0-1023.
-        <br>
-        <br>
         As for analogRead, it currently uses a 10-bit analog digital converter with a range of 0-1023. 
         If I had a 16-bit analog digital converter instead, the range would be 0-65,535 (2^16).
         <br>
