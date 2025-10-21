@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Emi Nakata's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Emi Nakata's Assignment 4!</h1>
+    <div class="header">
+      
+      <p>Here is all the documentation for assignment 4!
+        <br>
+        <br>
+      </p>
+
+    </div>
+    <div class="content">
+      <h2>My Schematic</h2>
+      <img src="a3-schematic.jpg" width="700" height="350"/>
+      Image of my schematic with labeled components, including pins, resistors, LEDs, photoresistor, and ground.
+      <br>
+      <br>
+
+      <h2>Resistance Calculation</h2>
+      <img src="a3-resistance-calculations.jpg" width="800" height="550"/>
+      Image of my calculations for the resistances needed for my circuit.
+      I used a 220 ohm resistor for the red LED, a 100 ohm resistor for the blue LED, and a 10k ohm resistor for the photoresistor.
+      <br>
+      <br>
+
+      <h2>My Circuit</h2>
+      <img src="a3-circuit.jpeg" width="440" height="550"/>
+      Image of my physical circuit, "Input Output", with all components connected.
+      <br>
+      <br>
+
+      <h2>My Firmware</h2>
+        <pre><code>
+            
+        </code>
+        </pre>
+      <br>
+
+      <h2>My Circuit's Operation</h2>
+      <video controls width="600" height="350">
+        <source src="a3-circuit-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+      </video>
+      Video of my circuit in operation, with a photoresistor, red LED, and blue LED.
+      <br>
+      <br>
+      
+
+      <h2>Additional Questions</h2>
+      <p>
+        1: Say you are using a servo motor you attach to pin 9. In your loop() you have the following code:
+
+        void loop() {
+        for (pos = 0; pos <= 180; pos += 1) {
+        myservo.write(pos); 
+        delay(100); 
+        }
+        }
+        Draw a graph with the x-axis as time and the y-axis as voltage at pin 9 with respect to ground.
+        <br>
+        <br>
+        Answer.
+        <br>
+        <br>
+
+        2: Your input device is slightly broken, leading it to give us an erroneous reading 1% of the time. 
+        How can we address this? Answer in (pseudo)code.
+        <br>
+        <br>
+        Answer.
+        <br>
+        <br>
+
+        3: Your input device is slightly noisy, leading the measurement to randomly deviate 
+        from the true measurement up or down by 10%. 
+        How can we address this? Answer in (pseudo)code.
+        <br>
+        <br>
+        Answer.
+        <br>
+        <br>
+
+        4: Did you use AI tools in completing this assignment? 
+        If yes, please provide details on how/when, as well as a brief reflection. 
+        If no, you can either leave this question blank, or provide other information if you'd like.
+        <br>
+        <br>
+        Answer. 
+      </p>
+
+    </div>
+  </body>
+</html>
