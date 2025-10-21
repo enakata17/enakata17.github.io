@@ -53,18 +53,20 @@
       Video of my circuit in operation, with a photoresistor, red LED, and blue LED.
       <br>
       <br>
-      
+
 
       <h2>Additional Questions</h2>
       <p>
         1: Say you are using a servo motor you attach to pin 9. In your loop() you have the following code:
-
+        <pre><code>
         void loop() {
-        for (pos = 0; pos <= 180; pos += 1) {
-        myservo.write(pos); 
-        delay(100); 
-        }
-        }
+            for (pos = 0; pos <= 180; pos += 1) {
+            myservo.write(pos); 
+            delay(100); 
+            }
+        } 
+        </code>
+        </pre>
         Draw a graph with the x-axis as time and the y-axis as voltage at pin 9 with respect to ground.
         <br>
         <br>
