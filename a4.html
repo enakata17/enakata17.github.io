@@ -164,7 +164,29 @@
         How can we address this? Answer in (pseudo)code.
         <br>
         <br>
-        Answer.
+        You could use a threshold value to filter out the 1% erroneous readings.
+        Pseudo code example:
+        <pre><code>
+          lastValidReading = readSensor();
+
+          threshold = 100;    // define maximum acceptable change
+          min_valid = 0;      // minimum possible valid reading
+          max_valid = 1023;   // maximum possible valid reading
+
+          loop:
+              newReading = readSensor();
+
+              // check if new reading is within valid range
+              if newReading < min_valid or newReading > max_valid:
+                  newReading = lastValidReading
+
+              // check if new reading differs too much from last valid reading
+              if abs(newReading - lastValidReading) > threshold:
+                  newReading = lastValidReading
+
+              // update last valid reading
+              lastValidReading = newReading;
+        </code></pre>
         <br>
         <br>
 
