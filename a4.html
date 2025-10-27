@@ -69,7 +69,7 @@
         Servo myservo;  // create Servo object to control a servo
 
         int pos = 90;       // variable to store current servo position
-        long thresh = 60;   // threshhold value: minimum capacitive reading that counts as a touch
+        long threshold = 60;   // threshhold value: minimum capacitive reading that counts as a touch
 
 
         void setup() {
@@ -108,9 +108,9 @@
             int angles[3] = { 0, 90, 180 };                 // servo angles for each sensor
 
             int newPos = pos;           // assume servo will stay where it is
-            long maxVal = thresh;       // initialize max value at threshold
+            long maxVal = threshold;       // initialize max value at threshold
             
-            // loop through each sensor to find which one is being touched most
+            // loop through each sensor to find which one is being touched
             for(int i = 0; i < 3; i++) {
                 if(totals[i] > maxVal) {    // if this sensor reading beats current max
                     maxVal = totals[i];     // update max reading
@@ -223,7 +223,14 @@
         If no, you can either leave this question blank, or provide other information if you'd like.
         <br>
         <br>
-        Answer. 
+        I used ChatGPT to help me debug my code, specifically my threshold value, when I was having trouble with the capacitive sensor readings.
+        I asked it for suggestions on the appropriate threshold values given the Serial Monitor outputs I was seeing 
+        and the behavior I wanted to achieve with my circuit. 
+        I originally had my threshold set way too high, which made it difficult to trigger the servo movement.
+        ChatGPT suggested lowering the threshold value, which helped improve the responsiveness of my circuit, 
+        but it also explained to me that if the sensor readings are too jumpy, I should consider increasing the threshold slightly.
+        Overall, using ChatGPT helped me understand how to choose appropriate threshold values for my preferred circuit behavior, 
+        learning the trade-offs between sensitivity and stability.
       </p>
 
     </div>
