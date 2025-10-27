@@ -164,16 +164,16 @@
         How can we address this? Answer in (pseudo)code.
         <br>
         <br>
-        You could use a threshold value to filter out the 1% erroneous readings.
+        We can use a threshold value to filter out the 1% erroneous readings.
         <br>
         <br>
         Pseudo code example:
         <pre><code>
           lastValidReading = readSensor();
 
-          threshold = 100;    // define maximum acceptable change
-          min_valid = 0;      // minimum possible valid reading
-          max_valid = 1023;   // maximum possible valid reading
+          int threshold = 100;    // define maximum acceptable change
+          int min_valid = 0;      // minimum possible valid reading
+          int max_valid = 1023;   // maximum possible valid reading
 
           loop:
               newReading = readSensor();
@@ -197,7 +197,22 @@
         How can we address this? Answer in (pseudo)code.
         <br>
         <br>
-        Answer.
+        We can find the median of multiple readings to reduce the effect of the noise
+        <br>
+        <br>
+        Pseudo code example:
+        <pre><code>
+          loop: 
+            // take multiple readings from the same sensor
+            r1 = readSensor()
+            r2 = readSensor()
+            r3 = readSensor()
+
+            // find the middle value (the median)
+            medianValue = median(r1, r2, r3)
+
+            // use the median value instead of a single noisy reading
+            useValue(medianValue)
         <br>
         <br>
 
