@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Emi Nakata's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Lumo!</h1>
+    <div class="header">
+      
+      <p>By Emi Nakata
+        <br>
+        <br>
+      </p>
+
+    </div>
+    <div class="content">
+      <h2>Project Concept/Motivation</h2>
+      I want to build a focus light device that acts as a visual study timer, 
+      using LED feedback to help manage focus and break sessions. 
+      When I press a button, the device will glow one color (e.g. blue) during focus mode, 
+      and after a set amount of time, it’ll switch to a different color (e.g. green) to signal a break. 
+      Once the break ends, the device will automatically return to focus mode.
+      <img src="lumo-proposal.jpg" width="700" height="450"/>
+      <br>
+      <br>
+
+      <h2>Anticipated Bill of Materials</h2>
+        Arduino Uno (for controlling the timer and LED color changes)
+        Breadboard + wires (for wiring my circuit)
+        RGB LEDs (for displaying different colors for focus/breaks)
+        Push Button (for starting and resetting the timer)
+        Resistors (220/100/10k) (for controlling current & voltage of RGB LED and push button)
+        Translucent/frosted jar and container (for enclosing, diffusing, and hiding the components)
+      <br>
+      <br>
+
+      <h2>Timeline</h2>
+        1: Research ideal focus and break durations for studying to implement in timer
+        2: Prototype LED color changes and button input on Arduino and breadboard
+        3: Test full cycle transitions
+        4: Prototype translucent/frosted jar and container: mount LED, Arduino, and button inside the enclosure and test the level of diffusion
+        - Determine appropriate size of enclosure for components with cardboard prototype
+        - Find final enclosure
+        5: Final iterations, testing, and debugging to create final prototype!
+
+      <br>
+      <br>
+
+      <h2>Contingency Plans</h2>
+        If something goes wrong with the timer code, I will simplify the operation to manually switching colors with the button.
+        If the RGB LEDs are not working properly, I will use separate-single color LEDs for each phase.
+        If the button input is glitching, I will debug or find a workaround in code or use a different input method.
+        If something goes wrong with the jar and container, I will use a temporary disposable enclosure.
+
+      <br>
+      <br>
+      </p>
+
+    </div>
+  </body>
+</html>
