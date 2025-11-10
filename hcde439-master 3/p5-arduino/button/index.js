@@ -35,7 +35,7 @@ function draw() {
     text("not pressed", windowWidth / 2, windowHeight / 2); // Position text in center of the screen
   } else if (buttonState === 1) {
     // If the button is pressed
-    background("lightskyblue"); // Background color
+    background("pink"); // Background color
     fill("yellow"); // Fill color for the text
     text("pressed!", windowWidth / 2, windowHeight / 2); // Position text in center of the screen
   }
