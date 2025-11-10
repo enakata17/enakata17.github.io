@@ -17,6 +17,21 @@ function setup() {
 }
 
 function draw() {
+
+
+  // Style the arc.
+  noStroke();
+  fill(255, 255, 0);
+
+  // Update start and stop angles.
+  let biteSize = PI / 16;
+  let startAngle = biteSize * sin(frameCount * 0.1) + biteSize;
+  let endAngle = TWO_PI - startAngle;
+
+  // Draw the arc.
+  arc(50, 50, 80, 80, startAngle, endAngle, PIE);
+
+  
   const portIsOpen = checkPort(); // Check whether the port is open (see checkPort function below)
   if (!portIsOpen) return; // If the port is not open, exit the draw loop
 
