@@ -216,6 +216,58 @@
         <br>
         <img src="a5-q3.jpg" width="600" height="400"/>
         <br>
+        Pseudo code for controlling two motors with L293D chip:
+        <pre><code>
+          // Define pins for Motor A (left side)
+          motorA_enable = 9;
+          motorA_forward = 2;
+          motorA_backward = 3;
+
+          // Define pins for Motor B (right side)
+          motorB_enable = 10;
+          motorB_forward = 4;
+          motorB_backward = 5;
+
+          // setup function
+          set all pins to OUTPUT mode
+          set both motor speeds to medium using analogWrite on enable pins 
+
+          // loop function
+          // Move both motors forward
+          set motorA_forward = HIGH
+          set motorA_backward = LOW
+
+          set motorB_forward = HIGH
+          set motorB_backward = LOW
+          delay 2 sec
+
+          // Move both motors backward
+          set motorA_forward = LOW
+          set motorA_backward = HIGH
+
+          set motorB_forward = LOW
+          set motorB_backward = HIGH
+          delay 2 sec
+
+          // Move Motor A forward, Motor B backward
+          set motorA_forward = HIGH
+          set motorA_backward = LOW
+
+          set motorB_forward = LOW
+          set motorB_backward = HIGH
+          delay 2 sec
+
+          // Move Motor A backward, Motor B forward
+          set motorA_forward = LOW
+          set motorA_backward = HIGH
+
+          set motorB_forward = HIGH
+          set motorB_backward = LOW
+          delay 2 sec
+
+        </code>
+        </pre>
+        <br>
         <br>
 
         4: Did you use AI tools in completing this assignment? 
