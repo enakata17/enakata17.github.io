@@ -26,29 +26,27 @@ function draw() {
 //   // trim the whitespace (the newline) and convert the string to a number
 //   const buttonState = Number(str.trim());
 
-//   // Change text and colors based on button state. In p5, you can set colors
-//   // using standard CSS color names as well as many other color formats.
-//   if (buttonState === 0) {
-//     // If the button is not pressed
-//     background("darkcyan"); // Background color
-//     fill("coral"); // Fill color for the text
-//     text("not pressed", windowWidth / 2, windowHeight / 2); // Position text in center of the screen
-//   } else if (buttonState === 1) {
-//     // If the button is pressed
-//     background("pink"); // Background color
-//     fill("yellow"); // Fill color for the text
-//     text("pressed!", windowWidth / 2, windowHeight / 2); // Position text in center of the screen
 
     // Step 1: Make GUI that rotates with mouse input
+    angleMode(DEGREES);
+    translate(windowWidth / 2, windowHeight / 2);
+
+    background(0);
+    let rot = map(mouseX, 0, windowWidth, -90, 90);
+    rotate(rot);
+    triangle(
+        -100, 
+        0,
+        +100, 
+        0,
+        0, 
+        -150);
+
+    fill("cyan");
+    circle( 0, 0, 100);
+
 
     // Step 2: Send that data to Arduino
-    background(0);
-    triangle(windowWidth / 2 - 100, windowHeight / 2,
-             windowWidth / 2 + 100, windowHeight / 2,
-             windowWidth / 2, windowHeight / 2 - 150);
-    console.log(mouseX);
-    fill("cyan");
-    circle(windowWidth / 2, windowHeight / 2, 100);
 
 }
 
