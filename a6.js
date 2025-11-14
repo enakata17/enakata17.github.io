@@ -18,6 +18,26 @@ function setup() {
 
 function draw() {
 
+  // Read from the serial port
+  const portIsOpen = checkPort(); // Check whether the port is open (see checkPort function below)
+  if (!portIsOpen) return; // If the port is not open, exit the draw loop
+
+  let str = port.readUntil("\n"); // Read from the port until the newline
+  if (str.length == 0) return; // If we didn't read anything, return.
+
+  // Split the string into an array using the commas
+  let sensors = str.trim().split(",").map(Number);  
+  
+  let button1 = sensors[0]; // Button 1 (shape) state
+  let button2 = sensors[1]; // Button 2 (color) state
+  let potentiometer = sensors[2]; // Potentiometer (size) value
+  let joystickX = sensors[3]; // Joystick X (position) value
+  let joystickY = sensors[4]; // Joystick Y (position) value
+  let button3 = sensors[5]; // Button 3 (place) state
+  let button4 = sensors[6]; // Button 4 (clear) state
+
+
+
   // Move the origin to the center of the screen
   translate(windowWidth/2, windowHeight/2);
 
@@ -51,109 +71,94 @@ function draw() {
 
 
 
-  // BUTTON 2: Change color of the object being drawn based on button state
-  // Push button to change between red, orange, yellow, green, blue, violet, pink, white, black
-  const colors = ["red", "orange", "yellow", "green", "blue", "violet", "pink", "white", "black"];
+  // // BUTTON 2: Change color of the object being drawn based on button state
+  // // Push button to change between red, orange, yellow, green, blue, violet, pink, white, black
+  // const colors = ["red", "orange", "yellow", "green", "blue", "violet", "pink", "white", "black"];
 
-  let currentColor = 0;
-  if (button2 == HIGH) {
-    currentColor = (currentColor + 1) % colors.length;
-  }
+  // let currentColor = 0;
+  // if (button2 == HIGH) {
+  //   currentColor = (currentColor + 1) % colors.length;
+  // }
 
-  noStroke();
-  fill(colors[currentColor]);
+  // noStroke();
+  // fill(colors[currentColor]);
 
-  // Make LED color correspond to selected color
-  const ledColors = {
-    "red": [255, 0, 0],
-    "orange": [255, 165, 0],
-    "yellow": [255, 255, 0],
-    "green": [0, 255, 0],
-    "blue": [0, 0, 255],
-    "violet": [238, 130, 238],
-    "pink": [255, 192, 203],
-    "white": [255, 255, 255],
-    "black": [0, 0, 0]
-  };
+  // // Make LED color correspond to selected color
+  // const ledColors = {
+  //   "red": [255, 0, 0],
+  //   "orange": [255, 165, 0],
+  //   "yellow": [255, 255, 0],
+  //   "green": [0, 255, 0],
+  //   "blue": [0, 0, 255],
+  //   "violet": [238, 130, 238],
+  //   "pink": [255, 192, 203],
+  //   "white": [255, 255, 255],
+  //   "black": [0, 0, 0]
+  // };
 
-  const rgb = ledColors[colors[currentColor]];
-  analogWrite(ledPinR, rgb[0]);
-  analogWrite(ledPinG, rgb[1]);
-  analogWrite(ledPinB, rgb[2]);
-
-
-
-
-  // POTENTIOMETER: Change size of the object being drawn based on potentiometer value
-  let shapeSize = 50;
-
-  // map potentiometer value (0-1023) to size (10-200)
-  shapeSize = map(potentiometer, 0, 1023, 10, 200);
-  shapeSize = constrain(shapeSize, 10, 200); // Constrain size to be between 10 and 200
-
-  // Draw the shape with the current size
-  if (currentShape == 0) {
-    triangle(-shapeSize/2, shapeSize/2, 0, -shapeSize/2, shapeSize/2, shapeSize/2);
-  } else if (currentShape == 1) {
-    square(-shapeSize/2, -shapeSize/2, shapeSize);
-  } else if (currentShape == 2) {
-    rect(-shapeSize*0.8/2, -shapeSize/2, shapeSize*0.8, shapeSize);
-  } else if (currentShape == 3) {
-    polygon(0, 0, shapeSize/3, 6); // Hexagon
-  } else if (currentShape == 4) {
-    polygon(0, 0, shapeSize/3, 8); // Octagon
-  } else if (currentShape == 5) {
-    star(0, 0, shapeSize/6, shapeSize/3, 5); // Star
-  } else if (currentShape == 6) {
-    circle(0, 0, shapeSize); // Circle
-  }
-
-  // Make LED brightness correspond to potentiometer value
-  analogWrite(ledPin, potentiometer / 4); // Scale 0-1023 to 0-255
-
-
-  // Joystick: Change position of the object being drawn based on joystick values
-  // Move joystick to change position of object being drawn -- x and y positions
+  // const rgb = ledColors[colors[currentColor]];
+  // analogWrite(ledPinR, rgb[0]);
+  // analogWrite(ledPinG, rgb[1]);
+  // analogWrite(ledPinB, rgb[2]);
 
 
 
 
-  // BUTTON 3: Place objects on the screen when button is pressed
-  if (button3 == HIGH) {
-    // Place the current shape at the current mouse position
-    push();
-    translate(mouseX, mouseY);
-    noStroke();
-    fill(colors[currentColor]);
-    // Draw the current shape
-    drawShape(currentShape, shapeSize);
-    pop();
-  }
+  // // POTENTIOMETER: Change size of the object being drawn based on potentiometer value
+  // let shapeSize = 50;
+
+  // // map potentiometer value (0-1023) to size (10-200)
+  // shapeSize = map(potentiometer, 0, 1023, 10, 200);
+  // shapeSize = constrain(shapeSize, 10, 200); // Constrain size to be between 10 and 200
+
+  // // Draw the shape with the current size
+  // if (currentShape == 0) {
+  //   triangle(-shapeSize/2, shapeSize/2, 0, -shapeSize/2, shapeSize/2, shapeSize/2);
+  // } else if (currentShape == 1) {
+  //   square(-shapeSize/2, -shapeSize/2, shapeSize);
+  // } else if (currentShape == 2) {
+  //   rect(-shapeSize*0.8/2, -shapeSize/2, shapeSize*0.8, shapeSize);
+  // } else if (currentShape == 3) {
+  //   polygon(0, 0, shapeSize/3, 6); // Hexagon
+  // } else if (currentShape == 4) {
+  //   polygon(0, 0, shapeSize/3, 8); // Octagon
+  // } else if (currentShape == 5) {
+  //   star(0, 0, shapeSize/6, shapeSize/3, 5); // Star
+  // } else if (currentShape == 6) {
+  //   circle(0, 0, shapeSize); // Circle
+  // }
+
+  // // Make LED brightness correspond to potentiometer value
+  // analogWrite(ledPin, potentiometer / 4); // Scale 0-1023 to 0-255
 
 
-
-  // BUTTON 4: Clear the screen when button is pressed
-  if (button4 == HIGH) {
-    // Clear the screen by resetting the background
-    background("cream");
-  }
-
-  // 
-
-  // Read from the serial port
+  // // Joystick: Change position of the object being drawn based on joystick values
+  // // Move joystick to change position of object being drawn -- x and y positions
 
 
 
 
 
-  // const portIsOpen = checkPort(); // Check whether the port is open (see checkPort function below)
-  // if (!portIsOpen) return; // If the port is not open, exit the draw loop
+  // // BUTTON 3: Place objects on the screen when button is pressed
+  // if (button3 == HIGH) {
+  //   // Place the current shape at the current mouse position
+  //   push();
+  //   translate(mouseX, mouseY);
+  //   noStroke();
+  //   fill(colors[currentColor]);
+  //   // Draw the current shape
+  //   drawShape(currentShape, shapeSize);
+  //   pop();
+  // }
 
-  // let str = port.readUntil("\n"); // Read from the port until the newline
-  // if (str.length == 0) return; // If we didn't read anything, return.
 
-  // // trim the whitespace (the newline) and convert the string to a number
-  // const buttonState = Number(str.trim());
+
+  // // BUTTON 4: Clear the screen when button is pressed
+  // if (button4 == HIGH) {
+  //   // Clear the screen by resetting the background
+  //   background("cream");
+  // }
+
 
 
 }
