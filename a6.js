@@ -31,29 +31,53 @@ function draw() {
   translate(windowWidth/2, windowHeight/2);
 
   // Set the background to cream
-  background("cream");
+  background("pink");
   fill("coral");
   text("let's create!", 0, ((windowHeight / -2) + 50)); // Position text in center of the screen
 
-  noStroke();
-  fill("white");
-  circle(0, 0, 200); // Draw a circle in the center of the screen
-
   noCursor();
   console.log(mouseX, mouseY);
+
+  let shapeIndex = 0;
+  let lastButtonState = 0;
+
+  const button1 = buttonState; // Button 1 (shape) state
+
+  if (button1 === 1 && lastButtonState === 0) {
+    shapeIndex = (shapeIndex + 1) % 2; // Toggle between 0 and 1
+  }
+
+  lastButtonState = button1;
+
+  noCursor();
+  noStroke();
   fill("white");
+
+  const x = mouseX - windowWidth/2;
+  const y = mouseY - windowHeight/2;
+
+  if shapeIndex === 0 {
+    circle(x, y, 50); // Draw a circle at the mouse position
+  } else if shapeIndex === 1 {
+    square(x - 25, y - 25, 50); // Draw a square at the mouse position
+  } else if (shapeIndex === 2) {
+    triangle(
+      x, y - 25, 
+      x - 25, y + 25, 
+      x + 25, y + 25); // Draw a triangle at the mouse position
+  }
 
   // BUTTON 1: Change shape of the object being drawn based on button state
   // Push button to change between triangle, square, rectangle, hexagon, octogan, star, circle
-  const shapeType = ["triangle", "square", "rectangle", "hexagon", "octagon", "star", "circle"];
+  // const shapeType = ["triangle", "square", "rectangle", "hexagon", "octagon", "star", "circle"];
 
-  let currentShape = 0;
-  if (buttonState == 1) {
-    // If the button is pressed, change the shape
-    currentShape = (currentShape + 1) % shapeType.length;
-    // createShape(currentShape, 50);
-    text("drawn shape: " + shapeType[currentShape], 0, ((windowHeight / -2) + 120));
-  }
+  // let currentShape = 0;
+  // if (buttonState == 1) {
+  //   // If the button is pressed, change the shape
+  //   triangle(0, -25, -25, 25, 25, 25); // Draw a triangle in the center of the screen
+  //   // createShape(currentShape, 50);
+  //   // text("drawn shape: " + shapeType[currentShape], 0, ((windowHeight / -2) + 120));
+  // }
 
   // // Change text and colors based on button state. In p5, you can set colors
   // // using standard CSS color names as well as many other color formats.
