@@ -8,7 +8,15 @@ let lastShapeButton = 0;
 let colorIndex = 0;
 let lastColorButton = 0;
 
-let colors = ["red", "orange", "yellow", "green", "blue", "purple", "white"];
+let colors = ["red", "orange", "yellow", "green", "blue", "purple"];
+let colorsRGB = [
+  [255, 0, 0],      // red   
+  [255, 127, 0],    // orange
+  [255, 255, 0],    // yellow
+  [0, 255, 0],      // green
+  [0, 0, 255],      // blue
+  [125, 0, 255],    // purple
+];
 
 function setup() {
   setupSerial(); // Run our serial setup function (below)
@@ -37,34 +45,43 @@ function draw() {
 
 
   const portIsOpen = checkPort(); // Check whether the port is open (see checkPort function below)
-  if (!portIsOpen) return; // If the port is not open, exit the draw loop
+  
+  
+  if (portIsOpen) {
+    let str = port.readUntil("\n"); // Read from the port until the newline
+    if (str.length > 0) {
+  
+      const parts = str.trim().split(",");
+      if (parts.length >= 2) {
+  
+          const shapeButton = Number(parts[0]);
+          const colorButton = Number(parts[1]);
 
-  let str = port.readUntil("\n"); // Read from the port until the newline
-  if (str.length == 0) return; // If we didn't read anything, return.
-  
-  const parts = str.trim().split(",");
-  if (parts.length >= 2) return; 
-  
-  const shapeButton = Number(parts[0]);
-  const colorButton = Number(parts[1]);
+          // BUTTON 1: Change shape of the object being drawn based on button state
+          if (shapeButton === 1 && lastShapeButton === 0) {
+            shapeIndex = (shapeIndex + 1) % 3; // Toggle between 0 and 1
+          }
+
+          lastShapeButton = shapeButton;
+
+
+          // BUTTON 2: Change color of the object being drawn based on button state
+          if (colorButton === 1 && lastColorButton === 0) {
+            colorIndex = (colorIndex + 1) % colors.length; // Cycle through colors
+          
+            const rgb = colorsRGB[colorIndex];
+            const rgbMsg = r + "," + g + "," + b + "\n";
+            port.write(rgbMsg); // Send RGB values to Arduino
+          }
+
+          lastColorButton = colorButton;
+
+      } 
+    }
+  }
 
   noCursor();
   console.log(mouseX, mouseY);
-
-  // BUTTON 1: Change shape of the object being drawn based on button state
-  if (shapeButton === 1 && lastShapeButton === 0) {
-    shapeIndex = (shapeIndex + 1) % 3; // Toggle between 0 and 1
-  }
-
-  lastShapeButton = shapeButton;
-
-
-  // BUTTON 2: Change color of the object being drawn based on button state
-  if (colorButton === 1 && lastColorButton === 0) {
-    colorIndex = (colorIndex + 1) % colors.length; // Cycle through colors
-  }
-
-  lastColorButton = colorButton;
 
   noStroke();
   fill(colors[colorIndex]);
