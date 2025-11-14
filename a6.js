@@ -2,6 +2,14 @@ const BAUD_RATE = 9600; // This should match the baud rate in your Arduino sketc
 
 let port, connectBtn; // Declare global variables
 
+let shapeIndex = 0;
+let lastShapeButton = 0;
+
+let colorIndex = 0;
+let lastColorButton = 0;
+
+let colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "white"];
+
 function setup() {
   setupSerial(); // Run our serial setup function (below)
 
@@ -23,10 +31,14 @@ function draw() {
   let str = port.readUntil("\n"); // Read from the port until the newline
   if (str.length == 0) return; // If we didn't read anything, return.
 
-  // trim the whitespace (the newline) and convert the string to a number
-  const buttonState = Number(str.trim());
+  const parts = str.trim().split(",");
+  if (parts.length < 2) return;
+
+  const shapeButton = Number(parts[0]);
+  const colorButton = Number(parts[1]);
 
 
+  // SET UP CANVAS
   // Move the origin to the center of the screen
   translate(windowWidth/2, windowHeight/2);
 
@@ -38,27 +50,31 @@ function draw() {
   noCursor();
   console.log(mouseX, mouseY);
 
-  let shapeIndex = 0;
-  let lastButtonState = 0;
 
-  const button1 = buttonState; // Button 1 (shape) state
-
-  if (button1 === 1 && lastButtonState === 0) {
-    shapeIndex = (shapeIndex + 1) % 2; // Toggle between 0 and 1
+  // BUTTON 1: Change shape of the object being drawn based on button state
+  if (shapeButton === 1 && lastShapeButton === 0) {
+    shapeIndex = (shapeIndex + 1) % 3; // Toggle between 0 and 1
   }
 
-  lastButtonState = button1;
+  lastShapeButton = shapeButton;
 
-  noCursor();
+
+  // BUTTON 2: Change color of the object being drawn based on button state
+  if (colorButton === 1 && lastColorButton === 0) {
+    colorIndex = (colorIndex + 1) % colors.length; // Cycle through colors
+  }
+
+  lastColorButton = colorButton;
+
   noStroke();
-  fill("white");
+  fill("colors"[colorIndex]);
 
   const x = mouseX - windowWidth/2;
   const y = mouseY - windowHeight/2;
 
-  if shapeIndex === 0 {
+  if (shapeIndex === 0) {
     circle(x, y, 50); // Draw a circle at the mouse position
-  } else if shapeIndex === 1 {
+  } else if (shapeIndex === 1) {
     square(x - 25, y - 25, 50); // Draw a square at the mouse position
   } else if (shapeIndex === 2) {
     triangle(
@@ -67,31 +83,8 @@ function draw() {
       x + 25, y + 25); // Draw a triangle at the mouse position
   }
 
-  // BUTTON 1: Change shape of the object being drawn based on button state
-  // Push button to change between triangle, square, rectangle, hexagon, octogan, star, circle
-  // const shapeType = ["triangle", "square", "rectangle", "hexagon", "octagon", "star", "circle"];
 
-  // let currentShape = 0;
-  // if (buttonState == 1) {
-  //   // If the button is pressed, change the shape
-  //   triangle(0, -25, -25, 25, 25, 25); // Draw a triangle in the center of the screen
-  //   // createShape(currentShape, 50);
-  //   // text("drawn shape: " + shapeType[currentShape], 0, ((windowHeight / -2) + 120));
-  // }
 
-  // // Change text and colors based on button state. In p5, you can set colors
-  // // using standard CSS color names as well as many other color formats.
-  // if (buttonState === 0) {
-  //   // If the button is not pressed
-  //   background("darkcyan"); // Background color
-  //   fill("coral"); // Fill color for the text
-  //   text("not pressed", windowWidth / 2, windowHeight / 2); // Position text in center of the screen
-  // } else if (buttonState === 1) {
-  //   // If the button is pressed
-  //   background("pink"); // Background color
-  //   fill("yellow"); // Fill color for the text
-  //   text("pressed!", windowWidth / 2, windowHeight / 2); // Position text in center of the screen
-  // }
 }
 
 // Three helper functions for managing the serial connection.
