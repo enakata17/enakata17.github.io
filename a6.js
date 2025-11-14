@@ -64,10 +64,9 @@ function draw() {
   let currentShape = 0;
   if (button1 == HIGH) {
     currentShape = (currentShape + 1) % shapeType.length;
+    createShape(currentShape, 50);
+    text("drawn shape: " + shapeType);
   }
-
-  drawShape(currentShape, 50);
-
 
 
 
@@ -147,7 +146,7 @@ function draw() {
   //   noStroke();
   //   fill(colors[currentColor]);
   //   // Draw the current shape
-  //   drawShape(currentShape, shapeSize);
+  //   createShape(currentShape, shapeSize);
   //   pop();
   // }
 
@@ -213,8 +212,8 @@ function onConnectButtonClicked() {
 }
 
 
-// Function created to draw different shapes based on shape index
-function drawShape(currentShape, shapeSize) {
+// Function created to create different shapes based on shape index
+function createShape(currentShape, shapeSize) {
   if (currentShape == 0) {
     triangle(-25, 25, 0, -25, 25, 25);
   } else if (currentShape == 1) {
