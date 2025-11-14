@@ -64,8 +64,8 @@ function draw() {
   let currentShape = 0;
   if (button1 == HIGH) {
     currentShape = (currentShape + 1) % shapeType.length;
-    createShape(currentShape, 50);
-    text("drawn shape: " + shapeType);
+    // createShape(currentShape, 50);
+    text("drawn shape: " + shapeType[currentShape], 0, ((windowHeight / -2) + 120));
   }
 
 
