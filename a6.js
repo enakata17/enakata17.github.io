@@ -8,7 +8,7 @@ let lastShapeButton = 0;
 let colorIndex = 0;
 let lastColorButton = 0;
 
-let colors = ["red", "orange", "yellow", "green", "blue", "purple", "pink", "white"];
+let colors = ["red", "orange", "yellow", "green", "blue", "purple", "white"];
 
 function setup() {
   setupSerial(); // Run our serial setup function (below)
@@ -25,18 +25,6 @@ function setup() {
 }
 
 function draw() {
-  const portIsOpen = checkPort(); // Check whether the port is open (see checkPort function below)
-  if (!portIsOpen) return; // If the port is not open, exit the draw loop
-
-  let str = port.readUntil("\n"); // Read from the port until the newline
-  if (str.length == 0) return; // If we didn't read anything, return.
-
-  const parts = str.trim().split(",");
-  if (parts.length < 2) return;
-
-  const shapeButton = Number(parts[0]);
-  const colorButton = Number(parts[1]);
-
 
   // SET UP CANVAS
   // Move the origin to the center of the screen
@@ -47,9 +35,21 @@ function draw() {
   fill("coral");
   text("let's create!", 0, ((windowHeight / -2) + 50)); // Position text in center of the screen
 
+
+  const portIsOpen = checkPort(); // Check whether the port is open (see checkPort function below)
+  if (!portIsOpen) return; // If the port is not open, exit the draw loop
+
+  let str = port.readUntil("\n"); // Read from the port until the newline
+  if (str.length == 0) return; // If we didn't read anything, return.
+  
+  const parts = str.trim().split(",");
+  if (parts.length >= 2) return; 
+  
+  const shapeButton = Number(parts[0]);
+  const colorButton = Number(parts[1]);
+
   noCursor();
   console.log(mouseX, mouseY);
-
 
   // BUTTON 1: Change shape of the object being drawn based on button state
   if (shapeButton === 1 && lastShapeButton === 0) {
@@ -67,7 +67,7 @@ function draw() {
   lastColorButton = colorButton;
 
   noStroke();
-  fill("colors"[colorIndex]);
+  fill(colors[colorIndex]);
 
   const x = mouseX - windowWidth/2;
   const y = mouseY - windowHeight/2;
