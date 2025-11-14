@@ -17,8 +17,7 @@ function setup() {
 }
 
 function draw() {
-    background("pink");
-    
+
 //   const portIsOpen = checkPort(); // Check whether the port is open (see checkPort function below)
 //   if (!portIsOpen) return; // If the port is not open, exit the draw loop
 
@@ -33,7 +32,7 @@ function draw() {
     angleMode(DEGREES);
     translate(windowWidth / 2, windowHeight / 2);
 
-    background(0);
+    background("pink");
     let rot = map(mouseX, 0, windowWidth, -90, 90);
     rotate(rot);
     triangle(
@@ -44,11 +43,16 @@ function draw() {
         0, 
         -150);
 
-    fill("cyan");
-    circle( 0, 0, 100);
+    fill("white");
+    noStroke();
+    circle( 0, 0, 200);
+    let angleToWrite = int (rot + 90); // map to 0-180 range
+    port.write(angleToWrite);
 
 
     // Step 2: Send that data to Arduino
+
+    
 
 }
 
