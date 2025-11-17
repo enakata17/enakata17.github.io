@@ -40,7 +40,7 @@
 
 
       <h2>My Circuit</h2>
-      <img src="" width="440" height="550"/>
+      <img src="a6-circuit.jpg" width="700" height="500"/>
       Image of my physical circuit, "Talking to the Web!", with all components connected.
       <br>
       <br>
@@ -48,7 +48,7 @@
       
       <h2>My Circuit's Operation</h2>
       <video controls width="600" height="350">
-        <source src="" type="video/mp4">
+        <source src="a6-video.mp4" type="video/mp4">
       Your browser does not support the video tag.
       </video>
       Video of my circuit in operation, with pushbuttons and a joystick (input) controlling the webpage sketch and RGB LED (output).
@@ -390,30 +390,19 @@
 
       <h2>Additional Questions</h2>
       <p>
-        1: Question
-        <br>
-        <br>
-        Answer
-        <br>
-        <br>
-
-        2: Question
-        <br>
-        <br>
-        Answer
-        <br>
-        <br>
-
-        3: Question
-        <br>
-        <br>
-        Answer
-        <br>
-        <br>
-
-        4: Did you use AI tools in completing this assignment? 
+        Did you use AI tools in completing this assignment? 
         If yes, please provide details on how/when, as well as a brief reflection. 
         If no, you can either leave this question blank, or provide other information if you'd like.
+        <br>
+        <br>
+        Yes, I used ChatGPT to help debug my joystick's behavior, specifically the user placing the shapes on the canvas. 
+        It was randomly placing shapes, even when the button was not pressed, 
+        so I asked ChatGPT to help me create a test sketch of code for me to run in Arduino to understand what my joystick was doing.
+        It generated a quick test code for me to run in a new sketch (not my own code file), and I was able to clearly read the Serial Monitor outputs of just the joystick.
+        It showed me that my joystick was reading as 1 when "not pressed" and 0 when "pressed",
+        which was opposite than I thought and wanted. From here, I added a section of code in my js code to invert the values so my joystick outputted 1 when "pressed".
+        The AI tool was helpful because it isolated the Serial Monitor outputs of just the joystick. 
+        It was hard for me to distinguish what the underlying issue was when viewing all of the outputs from the many different inputs all at once.
         <br>
         <br>
       </p>
