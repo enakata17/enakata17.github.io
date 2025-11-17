@@ -255,7 +255,7 @@
                     shapeIndex = (shapeIndex + 1) % 3;    // cycle through shapes
                   }
                   
-                  // update current button state
+                  // update current shape button state
                   lastShapeButton = shapeButton;
 
 
@@ -265,7 +265,7 @@
                     sendCurrentColorToArduino();    // send new color to Arduino for RGB LED
                   }
                   
-                  // update current button state
+                  // update current color button state
                   lastColorButton = colorButton;
 
 
@@ -274,7 +274,7 @@
                     placedShapes = []; // Clear the array of placed shapes
                   }
 
-                  // update current button state
+                  // update current clear button state
                   lastClearButton = clearButton;
 
 
@@ -284,7 +284,7 @@
                     placedShapes.push({x: cursorX, y: cursorY, shape: shapeIndex, color: colorIndex});
                   }
 
-                  // update current button state
+                  // update current place button state
                   lastPlaceButton = placeJoyButton;
               } 
             }

@@ -100,7 +100,7 @@ function draw() {
             shapeIndex = (shapeIndex + 1) % 3;    // cycle through shapes
           }
           
-          // update current button state
+          // update current shape button state
           lastShapeButton = shapeButton;
 
 
@@ -110,7 +110,7 @@ function draw() {
             sendCurrentColorToArduino();    // send new color to Arduino for RGB LED
           }
           
-          // update current button state
+          // update current color button state
           lastColorButton = colorButton;
 
 
@@ -119,7 +119,7 @@ function draw() {
             placedShapes = []; // Clear the array of placed shapes
           }
 
-          // update current button state
+          // update current clear button state
           lastClearButton = clearButton;
 
 
