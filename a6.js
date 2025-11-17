@@ -11,8 +11,8 @@ let lastColorButton = 0;
 let lastPlaceButton = 0;
 let lastClearButton = 0;
 
-let joyX = 0;
-let joyY = 0;
+let cursorX = 0;
+let cursorY = 0;
 
 let placedShapes = [];    // Array to store placed shapes
 
@@ -37,8 +37,8 @@ function setup() {
   textStyle(BOLD);
   textAlign(CENTER, CENTER);
 
-  joystickX = 0;
-  joystickY = 0;
+  cursorX = 0;
+  cursorY = 0;
 
 }
 
@@ -68,14 +68,24 @@ function draw() {
   
           const shapeButton = Number(parts[0]);
           const colorButton = Number(parts[1]);
-          const placeButton = Number(parts[2]);
-          const clearButton = Number(parts[3]);
+          const clearButton = Number(parts[2]);
+
+          let placeJoyButton = Number(parts[3]);
+
+          if (placeJoyButton === 0) {
+            placeJoyButton = 1;   // pressed
+          } else {
+            placeJoyButton = 0;   // not pressed
+          }
+
           const joystickX = Number(parts[4]);
           const joystickY = Number(parts[5]);
 
+          console.log("placeJoy: ", placeJoyButton, "cursorX: ", cursorX, "cursorY: ", cursorY);
+
           // Map joystick values to canvas coordinates
-          joystickX = map(joystickX, 0, 1023, -windowWidth/2 + 50, windowWidth/2 - 50);
-          joystickY = map(joystickY, 0, 1023, -windowHeight/2 - 50, windowHeight/2 + 50);
+          cursorX = map(joystickX, 0, 1023, -windowWidth/2 + 50, windowWidth/2 - 50);
+          cursorY = map(joystickY, 0, 1023, -windowHeight/2 + 50, windowHeight/2 - 50);
 
           // BUTTON 1: Change shape of the object being drawn (on press)
           if (shapeButton === 1 && lastShapeButton === 0) {
@@ -89,20 +99,22 @@ function draw() {
           if (colorButton === 1 && lastColorButton === 0) {
             colorIndex = (colorIndex + 1) % colors.length; // Cycle through colors
             sendCurrentColorToArduino();
-            const rgb = colorsRGB[colorIndex];
-            const rgbMsg = r + "," + g + "," + b + "\n";
-            port.write(rgbMsg); // Send RGB values to Arduino
           }
 
           lastColorButton = colorButton;
 
-          // BUTTON 4: Clear all placed shapes (on press)
+          // BUTTON 3: Clear all placed shapes (on press)
           if (clearButton === 1 && lastClearButton === 0) {
             placedShapes = []; // Clear the array of placed shapes
           }
 
           lastClearButton = clearButton;
 
+          // Joystick button: place shape at current cursor (on press)
+          if (placeJoyButton === 1 && lastPlaceButton === 0 ) {
+            placedShapes.push({x: cursorX, y: cursorY, shape: shapeIndex, color: colorIndex});
+          }
+          lastPlaceButton = placeJoyButton;
       } 
     }
 
@@ -112,19 +124,19 @@ function draw() {
     noStroke();
     for (let s of placedShapes) {
       fill(colors[s.color]);
-      drawShape(s.shapeIndex, s.x, s.y);
+      drawShape(s.shape, s.x, s.y);
     }
 
     // Draw current cursor shape
     fill(colors[colorIndex]);
-    drawShape(shapeIndex, joystickX, joystickY);
+    drawShape(shapeIndex, cursorX, cursorY);
 
   }
 }
 
 // Helper function to draw shape by index
 function drawShape (shapeIndex, x, y) {
-  const size = 50;
+  const size = 100;
   if (shapeIndex === 0) {
     circle(x, y, size);
   } else if (shapeIndex === 1) {
@@ -142,7 +154,7 @@ function drawShape (shapeIndex, x, y) {
 function sendCurrentColorToArduino() {
   if (!port || !port.opened()) return;
   const rgb = colorsRGB[colorIndex];
-  const msg = r + "," + g + "," + b + "\n";
+  const msg = rgb[0] + "," + rgb[1] + "," + rgb[2] + "\n";
   port.write(msg);
 }
 
@@ -170,7 +182,7 @@ function checkPort() {
     // If the port is not open, change button text
     connectBtn.html("Connect to Arduino");
     // Set background to gray
-    background("gray");
+    // background("gray");
     return false;
   } else {
     // Otherwise we are connected
