@@ -398,11 +398,11 @@
         Yes, I used ChatGPT to help debug my joystick's behavior, specifically the user placing the shapes on the canvas. 
         It was randomly placing shapes, even when the button was not pressed, 
         so I asked ChatGPT to help me create a test sketch of code for me to run in Arduino to understand what my joystick was doing.
-        It generated a quick test code for me to run in a new sketch (not my own code file), and I was able to clearly read the Serial Monitor outputs of just the joystick.
+        It generated a quick test code for me to run in a separate sketch (not my own code file), and I was able to clearly read the Serial Monitor outputs of just the joystick.
         It showed me that my joystick was reading as 1 when "not pressed" and 0 when "pressed",
-        which was opposite than I thought and wanted. From here, I added a section of code in my js code to invert the values so my joystick outputted 1 when "pressed".
-        The AI tool was helpful because it isolated the Serial Monitor outputs of just the joystick. 
-        It was hard for me to distinguish what the underlying issue was when viewing all of the outputs from the many different inputs all at once.
+        which was opposite than I thought and wanted. From here, I added a section of code in my js code to invert the values so my joystick outputted 1 when "pressed". 
+        Viewing the serial outputs of the many different inputs all at once made it hard for me to identify what the underlying issue was; 
+        therefore, the AI tool was helpful because it helped me isolate the Serial Monitor outputs of just the joystick without needing to delete or comment out my already written code.
         <br>
         <br>
       </p>
