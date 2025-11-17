@@ -52,6 +52,7 @@
       Your browser does not support the video tag.
       </video>
       Video of my circuit in operation, with pushbuttons and a joystick (input) controlling the webpage sketch and RGB LED (output).
+      The color of the RGB LED mirrors the color of the shape being drawn on the webpage.
       <br>
       <br>
 
@@ -395,9 +396,9 @@
         If no, you can either leave this question blank, or provide other information if you'd like.
         <br>
         <br>
-        Yes, I used ChatGPT to help debug my joystick's behavior, specifically the user placing the shapes on the canvas. 
-        It was randomly placing shapes, even when the button was not pressed, 
-        so I asked ChatGPT to help me create a test sketch of code for me to run in Arduino to understand what my joystick was doing.
+        I used ChatGPT to help debug my joystick's behavior, specifically the user placing the shapes on the canvas. 
+        My joystick was randomly placing shapes, even when the button was not pressed, 
+        so I asked ChatGPT to help me create a test sketch of code for me to run in Arduino to understand how my joystick was behaving.
         It generated a quick test code for me to run in a separate sketch (not my own code file), and I was able to clearly read the Serial Monitor outputs of just the joystick.
         It showed me that my joystick was reading as 1 when "not pressed" and 0 when "pressed",
         which was opposite than I thought and wanted. From here, I added a section of code in my js code to invert the values so my joystick outputted 1 when "pressed". 
