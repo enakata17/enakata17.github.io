@@ -1,8 +1,9 @@
 const BAUD_RATE = 9600; // This should match the baud rate in your Arduino sketch
 
-let port, connectBtn; // Declare global variables
+// Declare global variables
+let port, connectBtn;
 
-let shapeIndex = 0;
+let shapeIndex = 0;        
 let lastShapeButton = 0;
 
 let colorIndex = 0;
