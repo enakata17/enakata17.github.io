@@ -1,26 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.js"></script>
-    <script src="https://unpkg.com/@gohai/p5.webserial@^1/libraries/p5.webserial.js"></script>
-    <title>Talking to the Web!</title>
-    <style>
-      html,
-      body {
-        padding: 0;
-        margin: 0;
-        overflow: hidden;
-      }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
-      canvas {
-        display: block;
-      }
-    </style>
+    <title>Emi Nakata's HCDE 439 Physical Computing Page!</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <script src="a6.js"></script>
+    <h1>Emi Nakata's Assignment 6!</h1>
+    <div class="header">
+      
+      <p>Here is all the documentation for assignment 6!
+        <br>
+        <br>
+      </p>
+
+    </div>
+    <div class="content">
+      <h2>My Schematic</h2>
+      <img src="a5-schematic.jpg" width="700" height="500"/>
+      Image of my schematic with labeled components, 
+      including pins (send and receive), resistors, capacitive sensor wires, diode, 
+      transistor, motor, external power source, and ground.
+      <br>
+      <br>
+
+      <h2>Resistance Values</h2>
+      I used 1M ohm resistors for the capacitive touch sensors because they provide low sensitivity, but fast response readings. 
+      It works well for my circuit's operation since I want the motor to adapt quickly when a capacitive touch is detected, 
+      without being too sensitive to false touches.
+      <br>
+      <br>
+
+      <h2>My Circuit</h2>
+      <img src="a5-circuit.jpg" width="440" height="550"/>
+      Image of my physical circuit, "High(er) voltage and transistors!", with all components connected.
+      <br>
+      <br>
+
+      <h2>My Firmware</h2>
+        <pre><code>
+        // Define Pins
+        const int shapeButtonPin = 5;   // Button 1: press to change shape
+        const int colorButtonPin = 4;   // Button 2: press to change color
+        const int clearButtonPin = 3;   // Button 3: press to clear canvas
+
+        const int placeButtonPin = 2;   // Joystick Button: use to place shape
+
+        const int joyXPin = A0;         // Joystick X axis
+        const int joyYPin = A1;         // Joystick Y axis
+
+        const int redLED = 11;          // PWM pin for red RGB LED
+        const int greenLED = 10;        // PWM pin for green RGB LED
+        const int blueLED = 9;          // PWM pin for blue RGB LED
+
+
+        void setup() {
+          // begin serial communication
+          Serial.begin(9600);
+
+          // set pushbuttons as inputs
+          pinMode(shapeButtonPin, INPUT);
+          pinMode(colorButtonPin, INPUT);
+          pinMode(clearButtonPin, INPUT);
+
+          // set joystick button as input w/ pullup since it is active-low
+          // 0 = pressed, 1 = not pressed
+          pinMode(placeButtonPin, INPUT_PULLUP);
+
+          // set joystick x and y axis as inputs
+          pinMode(joyXPin, INPUT);
+          pinMode(joyYPin, INPUT);
+
+          // set RGB LED as outputs
+          pinMode(redLED, OUTPUT);
+          pinMode(greenLED, OUTPUT);
+          pinMode(blueLED, OUTPUT);
+
+          // start with LED off
+          analogWrite(redLED, 0);
+          analogWrite(greenLED, 0);
+          analogWrite(blueLED, 0);
+        }
+
+        void loop() {
+
+          // Read states of pushbuttons
+          int shapeVal = digitalRead(shapeButtonPin);
+          int colorVal = digitalRead(colorButtonPin);
+          int clearVal = digitalRead(clearButtonPin);
+
+          // Read joystick button state (0 = pressed, 1 = not pressed)
+          int placeVal = digitalRead(placeButtonPin);
+
+          // Read joystick x and y axis (range 0-1023)
+          int joyX = analogRead(joyXPin);
+          int joyY = analogRead(joyYPin);     
+
+          // Send all values to a6.js separated by commas
+          Serial.print(shapeVal);
+          Serial.print(", ");
+          Serial.print(colorVal);
+          Serial.print(", ");
+          Serial.print(clearVal);
+          Serial.print(", ");
+          Serial.print(placeVal);    // joystick
+          Serial.print(", ");
+          Serial.print(joyX);
+          Serial.print(", ");
+          Serial.println(joyY);
+
+          // check if a6.js sent any RGB LED values back to Arduino
+          if (Serial.available() > 0) {
+            int r = Serial.parseInt();
+            int g = Serial.parseInt();
+            int b = Serial.parseInt();
+
+            // Remove leftover characters
+            while (Serial.available() && Serial.peek() == '\n' || Serial.peek() == '\r') {
+              Serial.read();
+            }
+          
+            // Write RGB values to LED (constrain values to 0-255)
+            analogWrite(redLED, constrain(r, 0, 255));
+            analogWrite(greenLED, constrain(g, 0, 255));
+            analogWrite(blueLED, constrain(b, 0, 255));
+          }
+
+          // Small delay between readings
+          delay(20);
+        }
+        </code>
+        </pre>
+      <br>
+
+      <h2>My Circuit's Operation</h2>
+      <video controls width="600" height="350">
+        <source src="a5-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+      </video>
+      Video of my circuit in operation, with capacitive touch sensors (input) controlling the motor (output) and its speed.
+      <br>
+      <br>
+
+
+      <h2>Additional Questions</h2>
+      <p>
+        1: Question
+        <br>
+        <br>
+        Answer
+        <br>
+        <br>
+
+        2: Question
+        <br>
+        <br>
+        Answer
+        <br>
+        <br>
+
+        3: Question
+        <br>
+        <br>
+        Answer
+        <br>
+        <br>
+
+        4: Did you use AI tools in completing this assignment? 
+        If yes, please provide details on how/when, as well as a brief reflection. 
+        If no, you can either leave this question blank, or provide other information if you'd like.
+        <br>
+        <br>
+      </p>
+    </div>
   </body>
 </html>
-
